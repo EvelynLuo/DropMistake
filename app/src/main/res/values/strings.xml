@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DropMistake</string>
+    <string name="app_name_ch">错学</string>
+    <string name="title_home">主页</string>
+    <string name="title_dashboard">组卷</string>
+    <string name="title_notifications">用户中心</string>
+</resources>
