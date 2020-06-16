@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 import bupt.dropmistake.R;
 
 public class NotificationsFragment extends Fragment {
-
+    //用户中心
     private NotificationsViewModel notificationsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
