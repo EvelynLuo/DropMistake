@@ -1,4 +1,4 @@
-package bupt.dropmistake;
+package bupt.dropmistake.tool;
 
 import java.io.BufferedReader;
 

@@ -1,22 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".ui.notifications.NotificationsFragment">
 
-    <TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.meetsl.scardview.SCardView
+        android:id="@+id/p1"
+        android:layout_width="@dimen/card_size"
+        android:layout_height="@dimen/card_hize"
+        android:layout_centerHorizontal="true"
+        app:cardBackgroundColor="@android:color/holo_orange_dark"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="@dimen/cardview_elevation"
+        app:cardLightDirection="LB">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="题目一"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/c1" />
+    </com.meetsl.scardview.SCardView>
+
+    <com.meetsl.scardview.SCardView
+        android:id="@+id/p2"
+        android:layout_below="@id/p1"
+        android:layout_width="@dimen/card_size"
+        android:layout_height="@dimen/card_hize"
+        android:layout_alignParentRight="true"
+        app:cardBackgroundColor="@android:color/holo_red_light"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="@dimen/cardview_elevation"
+        app:cardLightDirection="LB">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="题目二"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/c1" />
+    </com.meetsl.scardview.SCardView>
+
+
+    <com.meetsl.scardview.SCardView
+
+        android:layout_below="@id/p1"
+        android:layout_width="@dimen/card_size"
+        android:layout_height="@dimen/card_hize"
+        android:layout_centerInParent="true"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="@dimen/cardview_elevation"
+        app:cardLightDirection="LB">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="题目二"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/c1" />
+    </com.meetsl.scardview.SCardView>
+
+    <com.meetsl.scardview.SCardView
+
+        android:layout_below="@id/p1"
+        android:layout_width="@dimen/card_size"
+        android:layout_height="@dimen/card_hize"
+        android:layout_centerInParent="true"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="@dimen/cardview_elevation"
+        app:cardLightDirection="LB">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="题目二"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/c1" />
+    </com.meetsl.scardview.SCardView>
+
+
+</LinearLayout>
