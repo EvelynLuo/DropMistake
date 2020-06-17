@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,12 +17,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import bupt.dropmistake.BookActivity;
 import bupt.dropmistake.OcrActivity;
 import bupt.dropmistake.R;
 
 public class HomeFragment extends Fragment {
     //主页
     private HomeViewModel homeViewModel;
+    //列表
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -54,7 +57,16 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), OcrActivity.class);
                 startActivity(intent);
+            }
+        });
 
+        LinearLayout book = root.findViewById(R.id.list);
+
+        book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), BookActivity.class);
+                startActivity(intent);
             }
         });
 

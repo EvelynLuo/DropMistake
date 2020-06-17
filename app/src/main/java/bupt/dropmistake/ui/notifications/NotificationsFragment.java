@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import bupt.dropmistake.R;
+import bupt.dropmistake.tool.BallData;
 import bupt.dropmistake.tool.BallDataAdapter;
 
 public class NotificationsFragment extends Fragment {
@@ -37,9 +38,14 @@ public class NotificationsFragment extends Fragment {
                 R.string.about_ball_normal_content,
                 R.drawable.ball_normal));
          */
+        data.add(new BallData(R.string.about_ball_normal_title,
+                R.string.about_ball_normal_content,
+                R.mipmap.bicon));
+        data.add(new BallData(R.string.about_ball_oneup_title,
+                R.string.about_ball_oneup_content,
+                R.mipmap.bicon));
 
-
-
+        this._listView.setAdapter(data);
         return root;
     }
 }
