@@ -1,9 +1,7 @@
 package bupt.dropmistake.tool;
 
-import android.os.Bundle;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
+import android.util.Log;
 
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
@@ -31,8 +29,8 @@ public class Neo implements AutoCloseable {
     Matrix matrix;
     private Driver driver;
     private Session session;
-    private String userId = null;
 
+    public ArrayList<Problem> userQusts;
 
     public Neo() {
         try {
@@ -47,6 +45,7 @@ public class Neo implements AutoCloseable {
     public void close() throws Exception {
         driver.close();
     }
+
 
     public Double[][] iteration(double[][] matrix1) {
         double[] standard = new double[matrix.getRow()];
@@ -269,26 +268,36 @@ public class Neo implements AutoCloseable {
         System.out.println(result.get(1).toString() + "," + result.get(2).toString());
     }
 
-    public ArrayList<String[]> getUserQusts() {
-        if (userId == null) {
-            System.out.println("Please Log in first!");
-            return null;
-        } else {
-            StatementResult proResult = session
-                    .run("match(n:User)-[r]->(m:Qust) where id(n)=" + userId + " return m.png");
+    public ArrayList<Problem> getUserQusts() {
+        StatementResult proResult = session
+                .run("match(n:User)-[r]->(m:Qust) return m.png,m.klg3,r.date");
 
-            ArrayList<String[]> result = new ArrayList<>();
+        userQusts = new ArrayList<Problem>();
 
-            while (proResult.hasNext()) {
-                Record temp = proResult.next();
-                String[] pngUrl = temp.get(0).toString().split("null");
-                pngUrl[0] = "http://image.fclassroom.com" + pngUrl[0].substring(1, pngUrl[0].length() - 2);
-                pngUrl[1] = "http://image.fclassroom.com" + pngUrl[1].substring(2, pngUrl[1].length() - 1);
-                result.add(pngUrl);
-            }
-            return result;
+        while (proResult.hasNext()) {
+            Record temp = proResult.next();
+
+            String[] pngUrl = temp.get(0).toString().split("null");
+            pngUrl[0] = "http://image.fclassroom.com" + pngUrl[0].substring(1, pngUrl[0].length() - 2);
+            pngUrl[1] = "http://image.fclassroom.com" + pngUrl[1].substring(2, pngUrl[1].length() - 1);
+
+            String klgs = temp.get(1).toString();
+            String date = temp.get(2).toString();
+
+            Problem problem = new Problem(getKlgs(klgs), pngUrl[0], pngUrl[1], date);
+
+            userQusts.add(problem);
         }
+        return userQusts;
+    }
 
+    public ArrayList<String> getKlgs(String str) {
+        ArrayList<String> result = new ArrayList<String>();
+        String[] klgs = str.split("^.^");
+        for (String klg : klgs) {
+            result.add(klg);
+        }
+        return result;
     }
 
     public String[] getKlgcs() {
@@ -298,5 +307,6 @@ public class Neo implements AutoCloseable {
         }
         return result;
     }
+
 
 }
