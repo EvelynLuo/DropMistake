@@ -47,6 +47,7 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'io.github.meetsl:SCardView:1.0'
+    //noinspection GradleCompatible
     implementation 'com.android.support:recyclerview-v7:27.1.1'
 
 

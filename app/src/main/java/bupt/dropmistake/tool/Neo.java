@@ -1,7 +1,7 @@
 package bupt.dropmistake.tool;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.util.Log;
 
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
@@ -18,6 +18,11 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class Neo implements AutoCloseable {
+    //Neo Server = new Neo(url, user, pwd);
+    private static final String uri = "bolt://39.97.253.73:7687";
+    private static final String password = "20200702";
+    private static final String user = "neo4j";
+
     public String[] klgs = new String[10];
     public String[] klgcs = new String[3];
     public double[] frc = new double[3];
@@ -26,10 +31,12 @@ public class Neo implements AutoCloseable {
     private Session session;
     private String userId = null;
 
-    public Neo(String uri, String user, String password) {
+
+    public Neo() {
         try {
             driver = GraphDatabase.driver(uri, AuthTokens.basic(user, password));
             session = driver.session();
+            Log.i("DropLog", "1.0)连接数据库成功");
         } catch (Exception e) {
             System.err.println(e);
         }
