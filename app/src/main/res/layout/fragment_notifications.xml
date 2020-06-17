@@ -7,6 +7,35 @@
     android:orientation="vertical"
     tools:context=".ui.notifications.NotificationsFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="用户名"
+        android:id="@+id/about_us"
+        android:textSize="24sp"
+        android:layout_marginBottom="18dp"
+        android:textStyle="normal|bold" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="10dp"
+        android:background="#000" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我的错题"
+        android:id="@+id/about_title"
+        android:textSize="24sp"
+        android:layout_marginBottom="18dp"
+        android:textStyle="normal|bold" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/about_list" />
+
 
     <com.meetsl.scardview.SCardView
         android:id="@+id/p1"
