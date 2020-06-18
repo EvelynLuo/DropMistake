@@ -16,7 +16,7 @@
             android:layout_width="60dp"
             android:layout_height="42dp"
             android:paddingBottom="2dp"
-            android:paddingTop="10sp" />
+            android:paddingTop="14sp" />
 
 
         <LinearLayout
