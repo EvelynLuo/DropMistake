@@ -1,18 +1,17 @@
 package bupt.dropmistake.tool;
 
-import java.io.BufferedReader;
-
 import com.hankcs.hanlp.dictionary.CustomDictionary;
 import com.hankcs.hanlp.seg.common.Term;
 import com.hankcs.hanlp.tokenizer.StandardTokenizer;
 
-import java.io.File;
-import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Split {
+
+    static ArrayList<String> stop_list;
 
     public static String delete_space(String str_with_space) {
         String str_with_out_space = "";
@@ -26,8 +25,8 @@ public class Split {
         return str_with_out_space;
     }
 
-    public static ArrayList<String> get_stop_list(InputStream txt_path) {
-        ArrayList<String> stop_list = new ArrayList<String>();
+    public static void read_stop_list(InputStream txt_path){
+        stop_list = new ArrayList<String>();
         // 创建arraylist来存储读出的停用词
         // 现在已知停用词表(txt格式)是一个词一行存储，词的末尾有空格
         try {
@@ -43,10 +42,9 @@ public class Split {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return stop_list;
     }
 
-    public static boolean word_not_in(String check_str, ArrayList<String> stop_list) {
+    public static boolean word_not_in(String check_str) {
         boolean not_in = true;
         for (String str : stop_list) {
             if (check_str.equals(str)) {
@@ -57,12 +55,10 @@ public class Split {
         }
         return not_in;// 返回值为真，则说明这个词语不在停用词表当中，即可以添加进入
     }
-
-    public static void readFromTxt(String txtPath) {// 从txt文件当中导出数学词汇的方法
-        File readTxtFile = new File(txtPath);
+    public static void readFromTxt(InputStream addStream) {// 从txt文件当中导出数学词汇的方法
         BufferedReader readTxt;
         try {
-            readTxt = new BufferedReader(new FileReader(readTxtFile));
+            readTxt = new BufferedReader(new InputStreamReader(addStream));
             String lineString = null;
             while ((lineString = readTxt.readLine()) != null) {
                 // System.out.println(lineString);
@@ -73,15 +69,14 @@ public class Split {
             e.printStackTrace();
         }
     }
-
-    public static String[] striped(String text, ArrayList<String> stop_list) {
+    public static String[] striped(String text) {
 
         ArrayList<String> resultList = new ArrayList<>();
         java.util.List<Term> temp_List = StandardTokenizer.segment(text);
         for (int j = 0; j < temp_List.size(); j++) {
             String str_out = temp_List.get(j).toString();
             String[] str_splited = str_out.split("/");
-            if (((str_splited[1].equals("n") || str_splited[1].equals("v") || str_splited[1].equals("nz"))) && (word_not_in(str_splited[0], stop_list) == true)) { //&& (word_not_in(str_splited[0], stop_list) == true)
+            if ((str_splited[1].equals("n") || str_splited[1].equals("v") ||str_splited[1].equals("nz"))&& (word_not_in(str_splited[0]) == true)){
                 // 若索引表word_list当中还没有这个词，并且这个词是名词或者动词，并且这个词不在之前得到的停用词表当中，就将其加入到索引表当中
                 resultList.add(str_splited[0]);
             }

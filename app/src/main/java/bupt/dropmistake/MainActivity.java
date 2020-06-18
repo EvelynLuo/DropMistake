@@ -10,6 +10,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.io.InputStream;
+
+import bupt.dropmistake.tool.Split;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -25,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        InputStream addStream = getResources().openRawResource(R.raw.addwords);
+        Split.readFromTxt(addStream);
+
+        InputStream stopStream = getResources().openRawResource(R.raw.stop_words1);
+        Split.read_stop_list(stopStream);
+
+        System.out.println("Load Raw OK");
     }
 
 }
