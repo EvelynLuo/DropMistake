@@ -15,7 +15,6 @@ import org.neo4j.driver.v1.StatementResult;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Scanner;
 
 public class Neo implements AutoCloseable {
     //Neo Server = new Neo(url, user, pwd);
@@ -50,7 +49,7 @@ public class Neo implements AutoCloseable {
     // 返回用户错题本所有错题接口
     public ArrayList<Problem> getUserQusts() {
         StatementResult proResult = session
-                .run("match(n:User)-[r]->(m:Qust) return m.png,m.klg3,r.date");
+                .run("match(n:User)-[r]->(m:Qust) return m.png,m.klg3,r.date,r.mode");
 
         userQusts = new ArrayList<Problem>();
 
@@ -63,8 +62,9 @@ public class Neo implements AutoCloseable {
 
             String klgs = temp.get(1).toString();
             String date = temp.get(2).toString();
+            int mode = Integer.parseInt(temp.get(3).toString());
 
-            Problem problem = new Problem(getKlgs(klgs), pngUrl[0], pngUrl[1], date);
+            Problem problem = new Problem(getKlgs(klgs), pngUrl[0], pngUrl[1], date, mode);
 
             userQusts.add(problem);
         }
@@ -230,7 +230,7 @@ public class Neo implements AutoCloseable {
         StatementResult uResult = session
                 .run("match(n) where id(n)=" + index.get(output[0][1].intValue()) +
                         " or id(n)=" + index.get(output[1][1].intValue()) + " or id(n)=" +
-                        index.get(output[2][1].intValue()) + " return n.png,n.hard,n.klg3");
+                        index.get(output[2][1].intValue()) + " return n.png,n.hard,n.klg3,n.mode");
 
         ArrayList<Problem> problems = new ArrayList<>();
         for (int i = 0; i < 6; i += 2) {
@@ -241,8 +241,9 @@ public class Neo implements AutoCloseable {
 
             int hard = Integer.parseInt(result.get(1).toString());
             String klg = result.get(2).toString();
+            int mode = Integer.parseInt(result.get(3).toString());
 
-            problems.add(new Problem(problemURL,answerURL,hard,getKlgs(klg)));
+            problems.add(new Problem(problemURL,answerURL,hard,getKlgs(klg),mode));
 
         }
         return problems;
@@ -319,13 +320,6 @@ public class Neo implements AutoCloseable {
         return result;
     }
 
-    private String[] getKlgcs() {
-        String[] result = new String[3];
-        for (int i = 0; i < 3; i++) {
-            result[i] = "知识点" + i + "-" + klgcs[i] + " " + frc[i];
-        }
-        return result;
-    }
 
 //    public static void main(String[] args) throws Exception {
 //        Neo test = new Neo();
