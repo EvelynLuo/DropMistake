@@ -15,6 +15,14 @@ public class Problem {
     public String answerURL;
     public String date;
 
+    public Problem(int difficulty, ArrayList<String> knowledgePoint, String problemURL, String answerURL, String date) {
+        this.difficulty = difficulty;
+        this.knowledgePoint = knowledgePoint;
+        this.problemURL = problemURL;
+        this.answerURL = answerURL;
+        this.date = date;
+    }
+
     public int getDifficulty() {
         return difficulty;
     }

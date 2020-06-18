@@ -21,4 +21,6 @@
     <string name="about_ball_speeder_content">Doppelt so schnell als normale Bälle</string>
     <string name="about_ball_oneup_content">Erhöht die Anzahl der Leben um 1</string>
     <string name="about_ball_skull_content">Verringert die Anzahl der Leben um 1</string>
+    <string name="myBook">我的错题本</string>
+    <string name="collection">收藏夹</string>
 </resources>
