@@ -49,7 +49,7 @@ public class Neo implements AutoCloseable {
     // 返回用户错题本所有错题接口
     public ArrayList<Problem> getUserQusts() {
         StatementResult proResult = session
-                .run("match(n:User)-[r]->(m:Qust) return m.png,m.klg3,r.date,r.mode");
+                .run("match(n:User)-[r]->(m:Qust) return m.png,m.klg3,r.date,m.mode");
 
         userQusts = new ArrayList<Problem>();
 
