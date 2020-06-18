@@ -48,6 +48,7 @@ public class HomeFragment extends Fragment {
         data.add(new BallData(R.string.myBook,
                 R.string.collection,
                 R.mipmap.bicon));
+        data.add(new BallData(R.string.newBook, R.string.more, R.mipmap.mybook));
         this._listView.setAdapter(data);
         //点击跳转
         this._listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
