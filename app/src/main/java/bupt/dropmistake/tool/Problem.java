@@ -94,6 +94,13 @@ public class Problem {
         this.date = date;
     }
 
+    public Problem(String problemURL, String answerURL,int difficulty,ArrayList<String> knowledgePoint){
+        this.difficulty = difficulty;
+        this.knowledgePoint = knowledgePoint;
+        this.problemURL = problemURL;
+        this.answerURL = answerURL;
+    }
+
     @NonNull
     @Override
     public String toString() {

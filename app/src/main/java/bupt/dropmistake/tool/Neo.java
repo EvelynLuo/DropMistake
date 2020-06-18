@@ -43,11 +43,91 @@ public class Neo implements AutoCloseable {
     }
 
     public void close() throws Exception {
+        session.closeAsync();
         driver.close();
     }
 
+    // 返回用户错题本所有错题接口
+    public ArrayList<Problem> getUserQusts() {
+        StatementResult proResult = session
+                .run("match(n:User)-[r]->(m:Qust) return m.png,m.klg3,r.date");
 
-    public Double[][] iteration(double[][] matrix1) {
+        userQusts = new ArrayList<Problem>();
+
+        while (proResult.hasNext()) {
+            Record temp = proResult.next();
+
+            String[] pngUrl = temp.get(0).toString().split("null");
+            pngUrl[0] = "http://image.fclassroom.com" + pngUrl[0].substring(1, pngUrl[0].length() - 2);
+            pngUrl[1] = "http://image.fclassroom.com" + pngUrl[1].substring(2, pngUrl[1].length() - 1);
+
+            String klgs = temp.get(1).toString();
+            String date = temp.get(2).toString();
+
+            Problem problem = new Problem(getKlgs(klgs), pngUrl[0], pngUrl[1], date);
+
+            userQusts.add(problem);
+        }
+        return userQusts;
+    }
+
+    // 搜题并返回结果接口
+    public ArrayList<Problem> searchQusts (String toSearch) {
+        String[] key = Split.striped(toSearch);
+
+        String run = "match(m:Word)-[r]->(n),(m:Word)<-[l]-(n) where ";
+        for (int i = 0; i < key.length; i++) {
+            if (i == key.length-1) {
+                run += "m.word=\"" + key[i] + "\"";
+            } else {
+                run += "m.word=\"" + key[i] + "\" or ";
+            }
+        }
+        //System.out.println(run);
+
+        StatementResult klgResult = session
+                .run(run + " return n.klg3,n.klg,sum(r.frc*l.frc)as sum order by sum desc limit 3");
+
+        int i = 0;
+        double sumfrc = 0;
+        while (klgResult.hasNext()) {
+            Record temp = klgResult.next();
+            klgs[i] = formatlabel(temp.get(1).toString());
+            klgcs[i] = temp.get(0).toString();
+            frc[i] = Double.parseDouble(temp.get(2).toString());
+
+            sumfrc += frc[i];
+            ++i;
+        }
+//        for (int j = 0; j < 3; j++) {
+//            System.out.println("知识点：" + klgs[j] + " " + klgcs[j] + "  可能性：" + frc[j] / sumfrc);
+//        }
+        if (klgs[0] != null) return mPagerank();
+        else return null;
+    }
+
+    public String addToBook(String id, String date){
+        StatementResult already = session.run("match(n:User)-[r]->(m:Qust) where id(m)="+id+" return r");
+        if(already.hasNext())
+            return "该题已存在";
+        else {
+            session.run("match(n:User),(m:Qust) where id(m)=" + id + " create (n)-[r:mistake{date:\""+date+"\"}]->(m)");
+            return "加入成功";
+        }
+    }
+
+    public String removeFromBook(String id){
+        try {
+            session.run("match(n:User)-[r]->(m:Qust) where id(m)="+id+" delete r");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return "删除失败";
+        }
+        return "删除成功";
+    }
+
+    private Double[][] iteration(double[][] matrix1) {
         double[] standard = new double[matrix.getRow()];
         double[] e = new double[matrix.getRow()];
         Matrix nowMatrix = new Matrix(matrix.getRow());
@@ -95,7 +175,7 @@ public class Neo implements AutoCloseable {
     }
 
 
-    public String formatlabel(String prime) {
+    private String formatlabel(String prime) {
         int flag = prime.indexOf("a");
         if (flag == -1) {
             prime = prime.replace("\"", "");// 将第一列取出,先把引号去掉
@@ -106,9 +186,7 @@ public class Neo implements AutoCloseable {
         }
     }
 
-    public String[] mPagerank() {
-        Session session = driver.session();
-
+    private ArrayList<Problem> mPagerank() {
         StatementResult idResult = session
                 .run("match(n:Qust) unwind labels(n) as l with l,id(n) as idn where l=~'a.*' and( l='" + klgs[0]
                         + "' or l='" + klgs[1] + "' or l='" + klgs[2] + "') return distinct idn");
@@ -152,69 +230,31 @@ public class Neo implements AutoCloseable {
         StatementResult uResult = session
                 .run("match(n) where id(n)=" + index.get(output[0][1].intValue()) +
                         " or id(n)=" + index.get(output[1][1].intValue()) + " or id(n)=" +
-                        index.get(output[2][1].intValue()) + " return n.png");
+                        index.get(output[2][1].intValue()) + " return n.png,n.hard,n.klg3");
 
-        String[] resultString = new String[6];
+        ArrayList<Problem> problems = new ArrayList<>();
         for (int i = 0; i < 6; i += 2) {
             Record result = uResult.next();
             String[] url = result.get(0).toString().split("null");
-            resultString[i] = "http://image.fclassroom.com" + url[0].substring(1, url[0].length() - 2);
-            resultString[i + 1] = "http://image.fclassroom.com" + url[1].substring(2, url[1].length() - 1);
+            String problemURL = "http://image.fclassroom.com" + url[0].substring(1, url[0].length() - 2);
+            String answerURL = "http://image.fclassroom.com" + url[1].substring(2, url[1].length() - 1);
+
+            int hard = Integer.parseInt(result.get(1).toString());
+            String klg = result.get(2).toString();
+
+            problems.add(new Problem(problemURL,answerURL,hard,getKlgs(klg)));
+
         }
-        return resultString;
+        return problems;
     }
 
 
-    public String[] key2klg(String keys) {
-        Session session = driver.session();
 
-        int key_num = keys.length() - (keys.replaceAll(" ", "")).length() + 1;
-        String[] key = new String[key_num];
+    private void key2qust(String splitedKeys) {
 
-        String run = "match(m:Word)-[r]->(n),(m:Word)<-[l]-(n) where ";
-        for (int i = 0; i < key_num; i++) {
+        splitedKeys = splitedKeys.replace(" ", ":");
 
-            int end = keys.indexOf(" ");
-            if (end == -1) {
-                key[i] = keys;
-                run += "m.word=\"" + key[i] + "\"";
-            } else {
-                key[i] = keys.substring(0, end);
-                run += "m.word=\"" + key[i] + "\" or ";
-                keys = keys.substring(end + 1);
-            }
-        }
-        //System.out.println(run);
-
-        StatementResult klgResult = session
-                .run(run + " return n.klg3,n.klg,sum(r.frc*l.frc)as sum order by sum desc limit 3");
-
-        int i = 0;
-        double sumfrc = 0;
-        while (klgResult.hasNext()) {
-            Record temp = klgResult.next();
-            klgs[i] = formatlabel(temp.get(1).toString());
-            klgcs[i] = temp.get(0).toString();
-            frc[i] = Double.parseDouble(temp.get(2).toString());
-
-            sumfrc += frc[i];
-            ++i;
-        }
-//        for (int j = 0; j < 3; j++) {
-//            System.out.println("知识点：" + klgs[j] + " " + klgcs[j] + "  可能性：" + frc[j] / sumfrc);
-//        }
-        if (klgs[0] != null) return mPagerank();
-        else return null;
-    }
-
-    public void key2qust() {
-        Session session = driver.session();
-        Scanner in = new Scanner(System.in);
-        String keys = in.nextLine();
-        in.close();
-        keys = keys.replace(" ", ":");
-
-        StatementResult array = session.run("match(n:Qust:" + keys + ") return id(n)");
+        StatementResult array = session.run("match(n:Qust:" + splitedKeys + ") return id(n)");
         int[] index = new int[100];
         int count;
         for (count = 0; array.hasNext(); count++) {
@@ -268,30 +308,9 @@ public class Neo implements AutoCloseable {
         System.out.println(result.get(1).toString() + "," + result.get(2).toString());
     }
 
-    public ArrayList<Problem> getUserQusts() {
-        StatementResult proResult = session
-                .run("match(n:User)-[r]->(m:Qust) return m.png,m.klg3,r.date");
 
-        userQusts = new ArrayList<Problem>();
 
-        while (proResult.hasNext()) {
-            Record temp = proResult.next();
-
-            String[] pngUrl = temp.get(0).toString().split("null");
-            pngUrl[0] = "http://image.fclassroom.com" + pngUrl[0].substring(1, pngUrl[0].length() - 2);
-            pngUrl[1] = "http://image.fclassroom.com" + pngUrl[1].substring(2, pngUrl[1].length() - 1);
-
-            String klgs = temp.get(1).toString();
-            String date = temp.get(2).toString();
-
-            Problem problem = new Problem(getKlgs(klgs), pngUrl[0], pngUrl[1], date);
-
-            userQusts.add(problem);
-        }
-        return userQusts;
-    }
-
-    public ArrayList<String> getKlgs(String str) {
+    private ArrayList<String> getKlgs(String str) {
         ArrayList<String> result = new ArrayList<String>();
         String[] klgs = str.split("^.^");
         for (String klg : klgs) {
@@ -300,7 +319,7 @@ public class Neo implements AutoCloseable {
         return result;
     }
 
-    public String[] getKlgcs() {
+    private String[] getKlgcs() {
         String[] result = new String[3];
         for (int i = 0; i < 3; i++) {
             result[i] = "知识点" + i + "-" + klgcs[i] + " " + frc[i];
@@ -308,5 +327,11 @@ public class Neo implements AutoCloseable {
         return result;
     }
 
+//    public static void main(String[] args) throws Exception {
+//        Neo test = new Neo();
+//        System.out.println(test.removeFromBook("2"));
+//        System.out.println(test.addToBook("2","2020-06-18"));
+//        test.close();
+//    }
 
 }
