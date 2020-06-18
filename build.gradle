@@ -8,7 +8,7 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:3.5.0'
         // 注意：这里的build:gradle:改为自己的版本如3.5.0/3.5.3 可以查看自己的AS之前运行的项目
         // 但不要git commit与push此文件  不要提交此文件
         // NOTE: Do not place your application dependencies here; they belong
