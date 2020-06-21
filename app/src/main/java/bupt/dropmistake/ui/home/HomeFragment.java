@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -62,6 +63,7 @@ public class HomeFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 //传给BookActivity通信
                 Intent intent = new Intent(getActivity(), RecommendActivity.class);
+                Toast.makeText(getContext(), "正在跳转", Toast.LENGTH_LONG).show();
                 System.out.println("跳转推荐题目页面");
                 Log.i("DMINFO", "跳转推荐题目页面:" + query);
                 intent.putExtra("value", query);
@@ -87,6 +89,7 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Item item = ItemList.get(position)
                 //intent.putExtra("url", Item.getXXX());--当不止有收藏夹为tag的错题本时。传递键值对生成不同的错题本页面
+                Toast.makeText(getContext(), "正在跳转", Toast.LENGTH_LONG).show();
                 System.out.println("跳转我的错题本页面");
                 Log.i("DMINFO", "跳转我的错题本页面");
                 Intent intent = new Intent(getActivity(), BookActivity.class);
@@ -123,13 +126,3 @@ public class HomeFragment extends Fragment {
         return root;
     }
 }
-
-
-/*
- homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                //textView.setText(s);
-            }
-        });
- */

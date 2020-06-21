@@ -4,7 +4,7 @@
     <string name="title_home">主页</string>
     <string name="title_dashboard">组卷</string>
     <string name="title_notifications">用户中心</string>
-    <string name="about_ball_normal_title">错题一</string>
+    <string name="about_ball_normal_title">开发人员</string>
 
 
     <string name="about_ball_bomb_title">TNT</string>
@@ -13,16 +13,16 @@
     <string name="about_ball_oneup_title">One up</string>
     <string name="about_ball_skull_title">Totenschädel</string>
 
-    <string name="about_us">RhythmTapper - a game brought to you from Peter Schmidbauer and Andreas Lobmaier with love. xoxo</string>
+    <string name="about_us"></string>
     <string name="about_title">Balltypen</string>
-    <string name="about_ball_normal_content">Keine spezielle Fähigkeit, bringt Punkte</string>
+    <string name="about_ball_normal_content">曹世翔、江天浩、熊皓宇、罗舒婷、隋小雨</string>
     <string name="about_ball_bomb_content">Zerstört alle kommenden Bälle für eine gewisse Zeit und zählt deren Punkte zum Punktestand.</string>
     <string name="about_ball_multiplier_content">Verdoppelt den Multiplikator</string>
     <string name="about_ball_speeder_content">Doppelt so schnell als normale Bälle</string>
     <string name="about_ball_oneup_content">Erhöht die Anzahl der Leben um 1</string>
     <string name="about_ball_skull_content">Verringert die Anzahl der Leben um 1</string>
     <string name="myBook">我的错题本</string>
-    <string name="collection">收藏夹</string>
+    <string name="collection">默认收藏夹</string>
     <string name="newBook">新建错题本</string>
-    <string name="more">可能添加的功能</string>
+    <string name="more">未来添加的功能，敬请期待:)</string>
 </resources>
