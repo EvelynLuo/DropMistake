@@ -2,9 +2,10 @@ package bupt.dropmistake.tool;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Problem {
+public class Problem implements Serializable {
     public int difficulty;// 难度系数
     public ArrayList<String> knowledgePoint;/* 知识点*/
     public String klgStr; //知识点字符串

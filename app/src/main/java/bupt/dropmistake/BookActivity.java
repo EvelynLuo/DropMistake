@@ -2,8 +2,10 @@ package bupt.dropmistake;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +19,19 @@ public class BookActivity extends AppCompatActivity {
     //列表
     private ListView _listView;
 
+    //获取通信--输入
+    public void getValue(String value) {
+        Toast.makeText(getApplicationContext(), value, Toast.LENGTH_LONG).show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
+        //获取跳转时携带数据
+        Intent intent = getIntent();
+        String value = intent.getStringExtra("value");
+        getValue(value);
 
         this._listView = (ListView) this.findViewById(R.id.problem_list);
         /*
