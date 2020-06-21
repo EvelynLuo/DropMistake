@@ -8,6 +8,8 @@ import java.util.ArrayList;
 public class Problem implements Serializable {
     public int difficulty;// 难度系数
     public ArrayList<String> knowledgePoint;/* 知识点*/
+
+
     public String klgStr; //知识点字符串
     public int exposure;/*曝光度*/
     public int score;// 题目的分数
@@ -18,6 +20,8 @@ public class Problem implements Serializable {
     public String answerURL;
     public String date;
 
+    public Problem() {
+    }
     public Problem(int difficulty, ArrayList<String> knowledgePoint, String problemURL, String answerURL, String date) {
         this.difficulty = difficulty;
         this.knowledgePoint = knowledgePoint;
@@ -26,6 +30,13 @@ public class Problem implements Serializable {
         this.date = date;
     }
 
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
+
+    public void setKlgStr(String klgStr) {
+        this.klgStr = klgStr;
+    }
     public int getDifficulty() {
         return difficulty;
     }
@@ -124,11 +135,14 @@ public class Problem implements Serializable {
 
     // 得到知识点String
    public String getKlgStr() {
-        String result = "";
-        for (String str : knowledgePoint) {
+
+       String result = "";
+
+       for (String str : knowledgePoint) {
             result += str + ' ';
         }
-        return result;
+
+       return result;
     }
 
     @NonNull

@@ -3,6 +3,7 @@ package bupt.dropmistake.ui.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +21,7 @@ import androidx.lifecycle.ViewModelProviders;
 import bupt.dropmistake.BookActivity;
 import bupt.dropmistake.OcrActivity;
 import bupt.dropmistake.R;
+import bupt.dropmistake.RecommendActivity;
 import bupt.dropmistake.tool.BallData;
 import bupt.dropmistake.tool.BallDataAdapter;
 
@@ -59,8 +61,9 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //传给BookActivity通信
-                Intent intent = new Intent(getActivity(), BookActivity.class);
-                System.out.println("跳转页面");
+                Intent intent = new Intent(getActivity(), RecommendActivity.class);
+                System.out.println("跳转推荐题目页面");
+                Log.i("DMINFO", "跳转推荐题目页面:" + query);
                 intent.putExtra("value", query);
                 startActivity(intent);
                 return true;
@@ -84,6 +87,8 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Item item = ItemList.get(position)
                 //intent.putExtra("url", Item.getXXX());--当不止有收藏夹为tag的错题本时。传递键值对生成不同的错题本页面
+                System.out.println("跳转我的错题本页面");
+                Log.i("DMINFO", "跳转我的错题本页面");
                 Intent intent = new Intent(getActivity(), BookActivity.class);
                 startActivity(intent);
             }
@@ -107,6 +112,8 @@ public class HomeFragment extends Fragment {
         ocr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("跳转OCR处理页面");
+                Log.i("DMINFO", "跳转OCR处理页面");
                 Intent intent = new Intent(getActivity(), OcrActivity.class);
                 startActivity(intent);
             }

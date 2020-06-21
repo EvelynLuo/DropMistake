@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
     <com.meetsl.scardview.SCardView
@@ -22,7 +23,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/list_title"
+                android:id="@+id/list_title_rec"
                 android:layout_marginTop="3sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,7 +34,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/list_date"
+                android:id="@+id/list_mode_rec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -57,7 +58,7 @@
                     android:textSize="10sp" />
 
                 <TextView
-                    android:id="@+id/list_diff"
+                    android:id="@+id/list_diff_rec"
                     android:layout_width="20sp"
                     android:layout_height="20sp"
                     android:layout_marginLeft="5sp"
@@ -77,7 +78,7 @@
                     android:textSize="10sp" />
 
                 <TextView
-                    android:id="@+id/list_kp"
+                    android:id="@+id/list_kp_rec"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5sp"
@@ -90,7 +91,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/list_proimg"
+                android:id="@+id/list_proimg_rec"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_gravity="center"
@@ -106,6 +107,7 @@
                 android:layout_marginRight="50sp">
 
                 <Button
+                    android:id="@+id/add_btn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -114,6 +116,7 @@
                 </Button>
 
                 <Button
+                    android:id="@+id/rec_see_ans"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -122,6 +125,12 @@
         </LinearLayout>
 
     </com.meetsl.scardview.SCardView>
+
+    <ImageView
+        android:id="@+id/ans"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:visibility="gone" />
 
 
 </LinearLayout>
