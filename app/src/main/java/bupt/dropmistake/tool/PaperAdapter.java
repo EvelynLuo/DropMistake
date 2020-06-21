@@ -33,14 +33,13 @@ public class PaperAdapter extends ArrayAdapter<ProblemData> {
         final ProblemData entry = getItem(position);
 
         TextView v = null;
-        v = (TextView) container.findViewById(R.id.list_title);
-        v.setText("错题" + String.valueOf(position + 1));
-
-        v = (TextView) container.findViewById(R.id.list_diff);
+        v = (TextView) container.findViewById(R.id.paper_title);
+        v.setText("第" + String.valueOf(position + 1)+"题");
+        v = (TextView) container.findViewById(R.id.paper_diff);
         v.setText("  " + String.valueOf(entry.get_diffId()));
-        v = (TextView) container.findViewById(R.id.list_kp);
+        v = (TextView) container.findViewById(R.id.paper_kp);
         v.setText(entry.get_kpId());
-        ImageView img = (ImageView) container.findViewById(R.id.list_proimg);
+        ImageView img = (ImageView) container.findViewById(R.id.paper_proimg);
         //img.setImageResource(entry.get_imgId());
         Picasso.with(getContext()).load(entry.get_imgId()).into(img);
         return container;

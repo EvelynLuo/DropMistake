@@ -22,7 +22,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/list_title"
+                android:id="@+id/paper_title"
                 android:layout_marginTop="3sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,6 +31,7 @@
                 android:text="题目序号"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,7 +48,7 @@
                     android:textSize="10sp" />
 
                 <TextView
-                    android:id="@+id/list_diff"
+                    android:id="@+id/paper_diff"
                     android:layout_width="20sp"
                     android:layout_height="20sp"
                     android:layout_marginLeft="5sp"
@@ -67,7 +68,7 @@
                     android:textSize="10sp" />
 
                 <TextView
-                    android:id="@+id/list_kp"
+                    android:id="@+id/paper_kp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5sp"
@@ -80,7 +81,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/list_proimg"
+                android:id="@+id/paper_proimg"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_gravity="center"
