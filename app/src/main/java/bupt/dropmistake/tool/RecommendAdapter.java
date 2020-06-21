@@ -13,14 +13,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.meetsl.scardview.SCardView;
 import com.squareup.picasso.Picasso;
 
 import bupt.dropmistake.R;
 
-public class ProblemAdapter extends ArrayAdapter<Problem> {
+public class RecommendAdapter extends ArrayAdapter<Problem> {
 
-    public ProblemAdapter(Context context) {
+
+    public RecommendAdapter(Context context) {
         super(context, -1);
     }
 
@@ -30,27 +30,26 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
         if (container == null) {
             Context c = getContext();
             LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            container = inflater.inflate(R.layout.list_problem, null);
+
+            container = inflater.inflate(R.layout.list_recommend, null);
         }
         final Problem entry = getItem(position);
 
         TextView v = null;
-        v = (TextView) container.findViewById(R.id.list_title);
-        v.setText("错题" + String.valueOf(position + 1) + "--" + entry.getMode());
-        v = (TextView) container.findViewById(R.id.list_date);
-        v.setText(entry.getDate());
-        v = (TextView) container.findViewById(R.id.list_diff);
+        v = (TextView) container.findViewById(R.id.list_title_rec);
+        v.setText("推荐" + String.valueOf(position + 1));
+        v = (TextView) container.findViewById(R.id.list_mode_rec);
+        v.setText(entry.getMode());
+        v = (TextView) container.findViewById(R.id.list_diff_rec);
         v.setText("  " + String.valueOf(entry.getDifficulty()));
-        v = (TextView) container.findViewById(R.id.list_kp);
+        v = (TextView) container.findViewById(R.id.list_kp_rec);
         v.setText(entry.getKlgStr());
-        ImageView img = (ImageView) container.findViewById(R.id.list_proimg);
+        ImageView img = (ImageView) container.findViewById(R.id.list_proimg_rec);
         Picasso.with(getContext()).load(entry.getProblemURL()).into(img);
         ImageView ans = (ImageView) container.findViewById(R.id.ans);
         Picasso.with(getContext()).load(entry.getAnswerURL()).into(ans);
-
-        Button seeAns = (Button) container.findViewById(R.id.pro_see_ans);
-        Button remove = (Button) container.findViewById(R.id.remove_btn);
-        SCardView sCardView = (SCardView) container.findViewById(R.id.bookcard);
+        Button seeAns = (Button) container.findViewById(R.id.rec_see_ans);
+        Button add = (Button) container.findViewById(R.id.add_btn);
         seeAns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,18 +68,16 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
                 }
             }
         });
-        remove.setOnClickListener(new View.OnClickListener() {
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("DMINFO", "ProblemAdapter.remove监听函数");
-                Toast.makeText(getContext(), remove.getText().toString(), Toast.LENGTH_LONG).show();
-
+                Log.i("DMINFO", "ProblemAdapter.add监听");
                 //数据库操作
                 Neo neo = new Neo();
-                String result = neo.removeFromBook(String.valueOf(entry.getId()));
+                String result = neo.addToBook(String.valueOf(entry.getId()));
                 Toast.makeText(getContext(), result, Toast.LENGTH_LONG).show();
                 Log.i("DMINFO", result);
-                sCardView.setVisibility(View.GONE);
+                add.setText("添加成功");
                 try {
                     neo.close();
                     neo = null;
@@ -90,14 +87,7 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
             }
         });
 
-
-
         return container;
-    }
-
-    private void click(View v) {
-        //Log.i("DMINFO","内部的按钮"+problemDataArrayList.get((Integer)v.getTag())+"查看解析被点击，位置："+v.getTag());
-        Toast.makeText(getContext(), getCount() + "被点击", Toast.LENGTH_LONG).show();
     }
 
 

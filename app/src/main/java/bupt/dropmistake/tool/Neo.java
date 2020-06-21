@@ -12,9 +12,11 @@ import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.Session;
 import org.neo4j.driver.v1.StatementResult;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 
 public class Neo implements AutoCloseable {
     //Neo Server = new Neo(url, user, pwd);
@@ -106,7 +108,9 @@ public class Neo implements AutoCloseable {
         else return null;
     }
 
-    public String addToBook(String id, String date){
+    public String addToBook(String id) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String date = df.format(new Date());
         StatementResult already = session.run("match(n:User)-[r]->(m:Qust) where id(m)="+id+" return r");
         if(already.hasNext())
             return "该题已存在";

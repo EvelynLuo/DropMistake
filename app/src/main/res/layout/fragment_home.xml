@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -27,25 +28,19 @@
 
         <SearchView
             android:id="@+id/searchview"
+            android:iconifiedByDefault="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:queryHint="请输入搜索题目"
+            android:imeOptions="actionSearch"
             android:background="@drawable/rectangle"
+            android:inputType="text"
             app:layout_constraintBottom_toBottomOf="@+id/view"
             app:layout_constraintEnd_toEndOf="@+id/view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.060000002">
 
-            <EditText
-                android:id="@+id/editText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="15"
-                android:hint="点击输入搜索题目"
-                android:inputType="text"
-                android:textAlignment="center"
-                android:textSize="14sp" />
         </SearchView>
 
         <ImageView

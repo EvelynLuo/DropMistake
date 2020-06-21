@@ -4,9 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
+
     <com.meetsl.scardview.SCardView
+        android:id="@+id/bookcard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -105,21 +108,34 @@
                 android:layout_marginRight="50sp">
 
                 <Button
+                    android:id="@+id/pro_see_ans"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="false"
                     android:text="查看解析">
                 </Button>
 
                 <Button
+                    android:id="@+id/remove_btn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="false"
                     android:text="移出错题本"></Button>
+
             </LinearLayout>
+
         </LinearLayout>
 
     </com.meetsl.scardview.SCardView>
 
+    <ImageView
+        android:id="@+id/ans"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:visibility="gone" />
 
 </LinearLayout>
