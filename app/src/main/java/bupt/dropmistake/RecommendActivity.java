@@ -37,8 +37,13 @@ public class RecommendActivity extends AppCompatActivity {
         ArrayList<Problem> arrayList = new ArrayList<Problem>();
         System.out.println("分词，数据库查找");
         Log.i("DMINFO", "分词，数据库查找");
-        arrayList = neo.searchQusts(value);
-        getValue(arrayList.toString());
+        try {
+            arrayList = neo.searchQusts(value);
+            //arrayList = neo.getUserQusts();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         getValue(value);
         //测试数据——静态

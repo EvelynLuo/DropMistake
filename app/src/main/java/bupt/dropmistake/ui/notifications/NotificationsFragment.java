@@ -56,11 +56,15 @@ public class NotificationsFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Item item = ItemList.get(position)
                 //intent.putExtra("url", Item.getXXX());--当不止有收藏夹为tag的错题本时。传递键值对生成不同的错题本页面
-                Toast.makeText(getContext(), "正在跳转", Toast.LENGTH_LONG).show();
-                System.out.println("跳转我的错题本页面");
-                Log.i("DMINFO", "跳转我的错题本页面");
-                Intent intent = new Intent(getActivity(), BookActivity.class);
-                startActivity(intent);
+                try {
+                    Toast.makeText(getContext(), "正在跳转", Toast.LENGTH_LONG).show();
+                    System.out.println("跳转我的错题本页面");
+                    Log.i("DMINFO", "跳转我的错题本页面");
+                    Intent intent = new Intent(getActivity(), BookActivity.class);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         return root;
