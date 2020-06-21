@@ -1,31 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.DashboardFragment">
+    tools:context=".ui.dashboard.DashboardFragment"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
     <TextView
-        android:id="@+id/text_dashboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:text="难度"
         android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="20dp"
+        android:layout_marginTop="150dp"></TextView>
 
-    <ImageView
-        android:id="@+id/imageView"
+    <RadioGroup
+        android:orientation="horizontal"
+        android:id="@+id/difficulity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/text_dashboard"
-        app:layout_constraintStart_toStartOf="@+id/text_dashboard"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dip">
+
+        <RadioButton
+            android:id="@+id/diff1"
+            style="@style/select_style"
+            android:tag="1"
+            android:text="1级" />
+
+        <RadioButton
+            android:id="@+id/diff2"
+            style="@style/select_style"
+            android:tag="2"
+            android:text="2级" />
+
+        <RadioButton
+            android:id="@+id/diff3"
+            style="@style/select_style"
+            android:tag="3"
+            android:text="3级" />
+
+        <RadioButton
+            android:id="@+id/diff4"
+            style="@style/select_style"
+            android:tag="4"
+            android:text="4级" />
+
+        <RadioButton
+            android:id="@+id/diff5"
+            style="@style/select_style"
+            android:tag="5"
+            android:text="5级" />
+    </RadioGroup>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:text="新鲜度"
+        android:layout_marginTop="50dp">
+    </TextView>
+    <RadioGroup
+        android:orientation="horizontal"
+        android:id="@+id/freshment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dip">
+        <RadioButton
+            android:id="@+id/err0"
+            style="@style/select_style"
+            android:tag="0"
+            android:text="未错" />
+
+        <RadioButton
+            android:id="@+id/err1"
+            style="@style/select_style"
+            android:tag="1"
+            android:text="错1次" />
+        <RadioButton
+            android:id="@+id/err2"
+            style="@style/select_style"
+            android:tag="2"
+            android:text="错2次" />
+        <RadioButton
+            android:id="@+id/err3"
+            style="@style/select_style"
+            android:tag="3"
+            android:text="2次以上" />
+    </RadioGroup>
+    <Button
+        android:id="@+id/button"
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确定组卷"
+        android:background="@color/colorYellow">
+    </Button>
+
+</LinearLayout>

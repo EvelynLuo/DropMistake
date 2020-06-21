@@ -34,6 +34,7 @@ public class BookActivity extends AppCompatActivity {
 
  this._listView.setAdapter(data);
          */
+
         ProblemAdapter data = new ProblemAdapter(getApplicationContext());
         String s = new String("http://image.fclassroom.com/1668/2018/1/272609/title_22_3298x2071_20180130133415967.png");
         ProblemData p = new ProblemData("2020-06-18", 2, "几何 概率 ", s, s);
@@ -54,9 +55,6 @@ public class BookActivity extends AppCompatActivity {
         data.add(p);
         this._listView.setAdapter(data);
         this._listView.setDivider(null);
-
-
-
 
     }
 }

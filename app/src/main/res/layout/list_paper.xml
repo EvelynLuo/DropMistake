@@ -32,16 +32,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/list_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="2020-06-17"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,29 +84,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_gravity="center"
+
                 android:contentDescription="题目图片" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="5sp"
-                android:layout_marginLeft="50sp"
-                android:layout_marginRight="50sp">
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="查看解析">
-                </Button>
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="移出错题本"></Button>
-            </LinearLayout>
         </LinearLayout>
 
     </com.meetsl.scardview.SCardView>

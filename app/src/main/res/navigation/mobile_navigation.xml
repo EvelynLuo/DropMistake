@@ -22,4 +22,9 @@
         android:name="bupt.dropmistake.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/navigation_paper"
+        android:name="bupt.dropmistake.ui.paper.PaperFragment"
+        android:label="组卷"
+        tools:layout="@layout/fragment_paper"/>
 </navigation>
