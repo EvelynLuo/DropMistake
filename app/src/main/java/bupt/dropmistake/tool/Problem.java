@@ -25,18 +25,23 @@ public class Problem {
         this.id = id;
     }
 
-    public Problem(ArrayList<String> knowledgePoint, String problemURL, String answerURL, String date, int modeI) {
+    public Problem(ArrayList<String> knowledgePoint, String problemURL, String answerURL, String date, int modeI, int difficulty, int id) {
         this.knowledgePoint = knowledgePoint;
         this.problemURL = problemURL;
         this.answerURL = answerURL;
         this.date = date;
+        this.mode = modeI;
+        this.difficulty = difficulty;
+        this.id = id;
     }
 
-    public Problem(String problemURL, String answerURL,int difficulty,ArrayList<String> knowledgePoint, int modeI){
+    public Problem(String problemURL, String answerURL,int difficulty,ArrayList<String> knowledgePoint, int modeI, int id){
         this.difficulty = difficulty;
         this.knowledgePoint = knowledgePoint;
         this.problemURL = problemURL;
         this.answerURL = answerURL;
+        this.mode = modeI;
+        this.id = id;
     }
 
     //得到题型
@@ -61,6 +66,6 @@ public class Problem {
     @NonNull
     @Override
     public String toString() {
-        return problemURL + '\n' + answerURL;
+        return "id-"+ id + " ; mode-" + getMode() + "; difficulty-" + difficulty + "; klg:" + getKlgStr() + '\n' + problemURL;
     }
 }

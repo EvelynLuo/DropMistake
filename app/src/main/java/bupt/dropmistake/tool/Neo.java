@@ -37,7 +37,7 @@ public class Neo implements AutoCloseable {
             session = driver.session();
             Log.i("DropLog", "1.0)连接数据库成功");
         } catch (Exception e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -49,7 +49,7 @@ public class Neo implements AutoCloseable {
     // 返回用户错题本所有错题接口
     public ArrayList<Problem> getUserQusts() {
         StatementResult proResult = session
-                .run("match(n:User)-[r]->(m:Qust) return m.png,m.klg3,r.date,m.mode");
+                .run("match(n:User)-[r]->(m:Qust) return m.png,m.klg3,r.date,m.mode,m.hard,id(m)");
 
         userQusts = new ArrayList<Problem>();
 
@@ -57,14 +57,16 @@ public class Neo implements AutoCloseable {
             Record temp = proResult.next();
 
             String[] pngUrl = temp.get(0).toString().split("null");
-            pngUrl[0] = "http://image.fclassroom.com" + pngUrl[0].substring(1, pngUrl[0].length() - 2);
-            pngUrl[1] = "http://image.fclassroom.com" + pngUrl[1].substring(2, pngUrl[1].length() - 1);
+            pngUrl[0] = "https://image.fclassroom.com" + pngUrl[0].substring(1, pngUrl[0].length() - 2);
+            pngUrl[1] = "https://image.fclassroom.com" + pngUrl[1].substring(2, pngUrl[1].length() - 1);
 
             String klgs = temp.get(1).toString();
             String date = temp.get(2).toString();
-            int mode = Integer.parseInt(temp.get(3).toString());
+            int mode = temp.get(3).asInt();
+            int hard = temp.get(4).asInt();
+            int id = temp.get(5).asInt();
 
-            Problem problem = new Problem(getKlgs(klgs), pngUrl[0], pngUrl[1], date, mode);
+            Problem problem = new Problem(getKlgs(klgs), pngUrl[0], pngUrl[1], date, mode, hard, id);
 
             userQusts.add(problem);
         }
@@ -230,20 +232,20 @@ public class Neo implements AutoCloseable {
         StatementResult uResult = session
                 .run("match(n) where id(n)=" + index.get(output[0][1].intValue()) +
                         " or id(n)=" + index.get(output[1][1].intValue()) + " or id(n)=" +
-                        index.get(output[2][1].intValue()) + " return n.png,n.hard,n.klg3,n.mode");
+                        index.get(output[2][1].intValue()) + " return n.png,n.hard,n.klg3,n.mode,id(n)");
 
         ArrayList<Problem> problems = new ArrayList<>();
         for (int i = 0; i < 6; i += 2) {
             Record result = uResult.next();
             String[] url = result.get(0).toString().split("null");
-            String problemURL = "http://image.fclassroom.com" + url[0].substring(1, url[0].length() - 2);
-            String answerURL = "http://image.fclassroom.com" + url[1].substring(2, url[1].length() - 1);
+            String problemURL = "https://image.fclassroom.com" + url[0].substring(1, url[0].length() - 2);
+            String answerURL = "https://image.fclassroom.com" + url[1].substring(2, url[1].length() - 1);
 
             int hard = Integer.parseInt(result.get(1).toString());
             String klg = result.get(2).toString();
             int mode = Integer.parseInt(result.get(3).toString());
-
-            problems.add(new Problem(problemURL,answerURL,hard,getKlgs(klg),mode));
+            int id = result.get(4).asInt();
+            problems.add(new Problem(problemURL,answerURL,hard,getKlgs(klg),mode,id));
 
         }
         return problems;
@@ -251,69 +253,9 @@ public class Neo implements AutoCloseable {
 
 
 
-    private void key2qust(String splitedKeys) {
-
-        splitedKeys = splitedKeys.replace(" ", ":");
-
-        StatementResult array = session.run("match(n:Qust:" + splitedKeys + ") return id(n)");
-        int[] index = new int[100];
-        int count;
-        for (count = 0; array.hasNext(); count++) {
-            Record id = array.next();
-            index[count] = Integer.parseInt(id.get(0).toString());
-        }
-
-        double[][] matrix = new double[count][count];
-        this.matrix = new Matrix(count);
-
-        int row = 0;
-        int line = 0;
-        for (; row < count; row++) {
-            for (line = row + 1; line < count; line++) {
-                StatementResult temp = session.run("match(n)-[r*2..2]-(m) where id(n)=" + index[row] + " and id(m)="
-                        + index[line] + " return count(r)");
-                matrix[row][line] = Integer.parseInt((temp.next().get(0).toString()));
-            }
-        }
-
-        for (row = 1; row < count; row++)
-            for (line = 0; line < row; line++)
-                matrix[row][line] = matrix[line][row];
-
-//        for (int i = 0; i < count; i++) {
-//            System.out.println(i + ":" + index[i]);
-//        }
-
-//        for (int i = 0; i < count; i++) {
-//            for (int j = 0; j < count; j++)
-//                System.out.print(matrix[i][j] + " ");
-//            System.out.println();
-//        }
-
-        Double[][] output = iteration(matrix);// 存储了已排序的结果
-
-//        for (int i = 0; i < count; i++) {
-//            System.out.println(output[i][0] + " " + index[output[i][1].intValue()]);
-//        }
-
-
-        StatementResult uResult = session
-                .run("match(n) where id(n)=" + index[output[0][1].intValue()] +
-                        " or id(n)=" + index[output[1][1].intValue()] + " or id(n)=" +
-                        index[output[2][1].intValue()] + " return n.png,id(n),n.klg3");
-
-        Record result = uResult.next();
-        String url = result.get(0).toString();
-        int uindex = url.indexOf("||");
-        System.out.println("http://image.fclassroom.com" + url.substring(1, uindex));
-        System.out.println(result.get(1).toString() + "," + result.get(2).toString());
-    }
-
-
-
     private ArrayList<String> getKlgs(String str) {
         ArrayList<String> result = new ArrayList<String>();
-        String[] klgs = str.split("^.^");
+        String[] klgs = str.replace("\"","").split("\\^\\.\\^");
         for (String klg : klgs) {
             result.add(klg);
         }

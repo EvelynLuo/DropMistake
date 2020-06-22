@@ -57,6 +57,12 @@
                 android:visibility="gone" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="在此处编辑识别的文本：" />
+
+            <EditText
                 android:id="@+id/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,5 +74,12 @@
 
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/sure"
+        android:layout_width="133dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="确认搜索" />
 
 </LinearLayout>

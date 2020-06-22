@@ -2,6 +2,7 @@ package bupt.dropmistake.ocr;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
@@ -12,13 +13,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
+
+import bupt.dropmistake.RecommendActivity;
 import bupt.dropmistake.ocr.utils.Utils;
 
 import bupt.dropmistake.R;
@@ -39,9 +46,9 @@ public class ShowCropperedActivity extends AppCompatActivity {
     private static final String  LANGUAGE      = "chi_sim";//chi_sim | eng
 
     private static final String    TAG = "ShowCropperedActivity";
-    private              ImageView imageView;
-    private              ImageView imageView2;
-    private              TextView  textView;
+    private ImageView imageView;
+    private ImageView imageView2;
+    private EditText textView;
 
     private int    width;
     private int    height;
@@ -52,12 +59,28 @@ public class ShowCropperedActivity extends AppCompatActivity {
     private Handler        handler = new Handler();
     private ProgressDialog dialog;
 
+    private Button sureButton;
+
     private ColorMatrix colorMatrix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_croppered);
+        sureButton = findViewById(R.id.sure);
+        sureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RecommendActivity.class);
+                Toast.makeText(context, "正在跳转推荐题目页面", Toast.LENGTH_LONG).show();
+                System.out.println("跳转推荐题目页面");
+                String query = textView.getText().toString();
+                Log.i("DMINFO", "跳转推荐题目页面:" + query);
+                intent.putExtra("value", query);
+                startActivity(intent);
+                finish();
+            }
+        });
         context = this;
         LANGUAGE_PATH = getExternalFilesDir("") + "/";
         Log.e("---------", LANGUAGE_PATH);
