@@ -18,7 +18,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import bupt.dropmistake.BookActivity;
-import bupt.dropmistake.OcrActivity;
 import bupt.dropmistake.R;
 
 public class HomeFragment extends Fragment {
@@ -55,7 +54,7 @@ public class HomeFragment extends Fragment {
         ocr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), OcrActivity.class);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }
         });

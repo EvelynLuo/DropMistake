@@ -13,6 +13,8 @@ buildscript {
         // 但不要git commit与push此文件  不要提交此文件
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        classpath 'com.google.gms:google-services:4.3.2'
+        // 该依赖是为了使用谷歌服务，build时需要翻墙
     }
 }
 

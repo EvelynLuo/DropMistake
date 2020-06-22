@@ -49,6 +49,16 @@ dependencies {
     implementation 'io.github.meetsl:SCardView:1.0'
     //noinspection GradleCompatible
     implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
+    //下面是OCR部分
+
+    //图像裁剪
+    implementation 'com.edmodo:cropper:1.0.1'
+    //文字识别
+    implementation 'com.rmtheis:tess-two:6.1.1'
+
+    //google分析
+    implementation 'com.google.android.gms:play-services-analytics:17.0.0'
 
 }
