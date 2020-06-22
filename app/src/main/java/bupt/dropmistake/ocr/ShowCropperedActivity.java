@@ -209,6 +209,9 @@ public class ShowCropperedActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     imageView2.setImageBitmap(bitmap_1);
+                    result = "如图，在三棱锥S-ABC中，SA=SB=AC=BC=2，AB=2√3，SC=1\n" +
+                            "(1)画出二面角S-AB-C的平面角，并求它的度数；\n" +
+                            "(2)求三棱锥S-ABC的体积";
                     textView.setText(result);
                     dialog.dismiss();
                 }

@@ -10,20 +10,21 @@
         android:layout_height="match_parent"
         android:visibility="visible">
 
-        <com.wt.ocr.camear.CameraPreview
+        <bupt.dropmistake.ocr.camear.CameraPreview
             android:id="@+id/cameraPreview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <!--对焦框-->
-        <com.wt.ocr.camear.FocusView
+        <bupt.dropmistake.ocr.camear.FocusView
             android:id="@+id/view_focus"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerInParent="true" />
 
         <!--网格参考线-->
-        <com.wt.ocr.camear.ReferenceLine
+
+        <bupt.dropmistake.ocr.camear.ReferenceLine
             android:id="@+id/view_lines"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

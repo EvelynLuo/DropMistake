@@ -59,6 +59,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     .setCategory("Action")
                     .setAction("拍照")
                     .build());
+
+            finish();
         }
     }
 

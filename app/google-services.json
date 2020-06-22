@@ -8,7 +8,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:220740679524:android:491dca6eb0989d5b",
         "android_client_info": {
-          "package_name": "com.wt.ocr"
+          "package_name": "bupt.dropmistake.ocr"
         }
       },
       "oauth_client": [

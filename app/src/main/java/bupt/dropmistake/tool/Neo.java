@@ -323,9 +323,12 @@ public class Neo implements AutoCloseable {
 
 //    public static void main(String[] args) throws Exception {
 //        Neo test = new Neo();
-//        System.out.println(test.removeFromBook("2"));
-//        System.out.println(test.addToBook("2","2020-06-18"));
-//        test.close();
+//        ArrayList<Problem> result = test.searchQusts("如图，在三棱锥S-ABC中，SA=SB=AC=BC=2，AB=2√3，SC=1\n" +
+//                "(1)画出二面角S-AB-C的平面角，并求它的度数；" +
+//                "(2)求三棱锥S-ABC的体积.");
+//        for(Problem problem : result){
+//            System.out.println(problem);
+//        }
 //    }
 
 }
