@@ -108,7 +108,28 @@ public class Neo implements AutoCloseable {
         else return null;
     }
 
-    public String addToBook(String id, String date){
+    public ArrayList<Problem> makePaper(int diff, int fresh){
+        Enter paperMaker = new Enter(session);
+        return paperMaker.paper(diff,fresh,getUserKlgs());
+    }
+
+    private ArrayList<String> getUserKlgs(){
+        if(userQusts == null)
+            userQusts = getUserQusts();
+        HashSet<String> klgSet = new HashSet<>();
+        for(Problem problem : userQusts){
+            for(String str : problem.knowledgePoint){
+                klgSet.add(str);
+            }
+        }
+        String [] klgArray = new String[klgSet.size()];
+        klgSet.toArray(klgArray);
+        return new ArrayList<>(Arrays.asList(klgArray));
+    }
+
+    public String addToBook(String id) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String date = df.format(new Date());
         StatementResult already = session.run("match(n:User)-[r]->(m:Qust) where id(m)="+id+" return r");
         if(already.hasNext())
             return "该题已存在";
